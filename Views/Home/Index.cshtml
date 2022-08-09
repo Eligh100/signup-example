@@ -1,8 +1,54 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@model signup_example.Models.User
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+    <div class="row justify-content-center">
+         <h1>Signup</h1>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-md-9">
+            <form>
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group">
+                    <label asp-for="Email" class="control-label"></label>
+                    <input asp-for="Email" class="form-control" type="email" autocomplete="email" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Password" class="control-label"></label>
+                    <input asp-for="Password" class="form-control" type="password" autocomplete="new-password" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="ConfirmPassword" class="control-label"></label>
+                    <input asp-for="ConfirmPassword" class="form-control" type="password" autocomplete="new-password" />
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                </div>
+
+                <div class="form-group d-flex pt-2 justify-content-center">
+                    <input type="submit" value="Register" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    @*<form action="#" method="post">
+
+
+            <section>
+                <label for="email">Email</label>
+                <input id="email" name="email" autocomplete="username"
+                        type="email" required>
+            </section>
+
+            <section>
+                <label for="password">Password</label>
+                <input id="password" name="password" autocomplete="new-password"
+                        type="password" minlength="8" required>
+            </section>
+
+            <button id="sign-up">Sign up</button>
+
+        </form>*@
