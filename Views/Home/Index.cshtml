@@ -1,54 +1,52 @@
 ﻿@model signup_example.Models.User
 
-    <div class="row justify-content-center">
-         <h1>Signup</h1>
+<div class="row justify-content-center">
+    <h1>Signup</h1>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-md-9">
+
+        <script type="text/javascript">
+            function onBegin() {
+                $("#loading").html('<div class="loading"></div>');
+            }
+            function onComplete() {
+                $("#loading").html("");
+            }
+        </script>
+
+        <form method="POST" asp-controller="Home" asp-action="RegisterUser" data-ajax="true"
+              data-ajax-update="#finished" data-ajax-begin="onBegin" data-ajax-complete="onComplete">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" type="email" autocomplete="email" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Password" class="control-label"></label>
+                <input asp-for="Password" class="form-control" type="password" autocomplete="new-password" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ConfirmPassword" class="control-label"></label>
+                <input asp-for="ConfirmPassword" class="form-control" type="password" autocomplete="new-password" />
+                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+            </div>
+
+            <div class="form-group d-flex pt-2 justify-content-center">
+                <input type="submit" value="Register" class="btn btn-primary" />
+            </div>
+        </form>
+
+        <div id="loading"></div>
+
+        <div id="finished"></div>
+
     </div>
+</div>
 
-    <div class="row justify-content-center">
-        <div class="col-md-9">
-            <form>
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
-                <div class="form-group">
-                    <label asp-for="Email" class="control-label"></label>
-                    <input asp-for="Email" class="form-control" type="email" autocomplete="email" />
-                    <span asp-validation-for="Email" class="text-danger"></span>
-                </div>
-
-                <div class="form-group">
-                    <label asp-for="Password" class="control-label"></label>
-                    <input asp-for="Password" class="form-control" type="password" autocomplete="new-password" />
-                    <span asp-validation-for="Password" class="text-danger"></span>
-                </div>
-
-                <div class="form-group">
-                    <label asp-for="ConfirmPassword" class="control-label"></label>
-                    <input asp-for="ConfirmPassword" class="form-control" type="password" autocomplete="new-password" />
-                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-                </div>
-
-                <div class="form-group d-flex pt-2 justify-content-center">
-                    <input type="submit" value="Register" class="btn btn-primary" />
-                </div>
-            </form>
-        </div>
-    </div>
-
-    @*<form action="#" method="post">
-
-
-            <section>
-                <label for="email">Email</label>
-                <input id="email" name="email" autocomplete="username"
-                        type="email" required>
-            </section>
-
-            <section>
-                <label for="password">Password</label>
-                <input id="password" name="password" autocomplete="new-password"
-                        type="password" minlength="8" required>
-            </section>
-
-            <button id="sign-up">Sign up</button>
-
-        </form>*@

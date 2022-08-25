@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using signup_example.Services;
 
 namespace signup_example
 {
@@ -23,6 +24,8 @@ namespace signup_example
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<IPasswordService, PasswordService>();
+            services.AddScoped<IApiService, ApiService>();
             services.AddControllersWithViews();
         }
 
