@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -25,27 +26,35 @@ namespace signup_example.Controllers
             return View();
         }
         
-        public IActionResult RegisterUser(string email, string password, string confirmPassword)
+        public async Task<IActionResult> RegisterUser(User newUser)
         {
-            ViewBag.loading = true;
+            if (ModelState.IsValid)
+            {
+                ModelState.Clear();
 
-            System.Threading.Thread.Sleep(2000);
+                Password passwordAndSalt = _passwordService.SaltAndHashPassword(newUser.Password);
 
-            return PartialView("UserRegistered");
+                UserConfig userConfig = new UserConfig
+                {
+                    Email = newUser.Email,
+                    PasswordHash = passwordAndSalt.HashedPassword,
+                    Salt = passwordAndSalt.Salt
+                };
 
-            //Password passwordAndSalt = _passwordService.SaltAndHashPassword(password);
+                try
+                {
+                    await _apiService.Post("user", userConfig);
+                } catch (Exception e)
+                {
+                    Debug.WriteLine("ERROR");
+                }
 
-            //UserConfig userConfig = new UserConfig
-            //{
-            //    Email = email,
-            //    PasswordHash = passwordAndSalt.HashedPassword,
-            //    Salt = passwordAndSalt.Salt
-            //};
-
-            //_apiService.Post("user", userConfig).ContinueWith((task) =>
-            //{
-            //    ViewBag.loading = false;
-            //}, TaskScheduler.FromCurrentSynchronizationContext());
+                return PartialView("UserRegistered");
+            }
+            else
+            {
+                return View();
+            }
         }
 
         public IActionResult Privacy()

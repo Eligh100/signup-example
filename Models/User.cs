@@ -8,17 +8,17 @@ namespace signup_example.Models
 {
     public class User
     {
-
-        [Required(ErrorMessage = "Please enter email...")]
+        [DataType(DataType.EmailAddress)]
         [Display(Name = "Email")]
+        [Required(ErrorMessage = "Please enter email")]
         public string Email { get; set; }
 
-        [Required(ErrorMessage = "Please enter password...")]
+        [Required(ErrorMessage = "Please enter password")]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
 
-        [Required(ErrorMessage = "Please confirm password...")]
+        [Required(ErrorMessage = "Please confirm password")]
         [DataType(DataType.Password)]
         [Display(Name = "Confirm Password")]
         [Compare("Password")]

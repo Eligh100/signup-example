@@ -21,7 +21,7 @@ namespace signup_example.Services
         public Task<HttpResponseMessage> Post(string path, object payload)
         {
             var content = new StringContent(payload.ToString(), Encoding.UTF8, "application/json");
-            return _httpClient.PostAsync(path, content);
+            return _httpClient.PostAsync($"https://localhost:7000/api/{path}", content);
         }
     }
 }

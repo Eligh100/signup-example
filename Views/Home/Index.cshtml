@@ -1,4 +1,4 @@
-﻿@model signup_example.Models.User
+﻿@model User
 
 <div class="row justify-content-center">
     <h1>Signup</h1>
@@ -9,15 +9,18 @@
 
         <script type="text/javascript">
             function onBegin() {
-                $("#loading").html('<div class="loading"></div>');
+                $("#loading").show();
+                $("#registrationForm").hide();
             }
             function onComplete() {
-                $("#loading").html("");
+                $("#loading").hide();
+                $("#registrationForm").show();
             }
         </script>
 
-        <form method="POST" asp-controller="Home" asp-action="RegisterUser" data-ajax="true"
+        <form id="registrationForm" method="POST" asp-controller="Home" asp-action="RegisterUser" data-ajax="true"
               data-ajax-update="#finished" data-ajax-begin="onBegin" data-ajax-complete="onComplete">
+
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
             <div class="form-group">
@@ -39,13 +42,15 @@
             </div>
 
             <div class="form-group d-flex pt-2 justify-content-center">
-                <input type="submit" value="Register" class="btn btn-primary" />
+                <input id="registerButton" type="submit" value="Register" class="btn btn-primary" />
             </div>
         </form>
 
-        <div id="loading"></div>
+        <div class="row justify-content-center pt-3" style="display: none" id="loading">
+            <div class="loading"></div>
+        </div>
 
-        <div id="finished"></div>
+        <div class="row justify-content-center" id="finished"></div>
 
     </div>
 </div>
