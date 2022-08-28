@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -34,7 +35,7 @@ namespace signup_example.Controllers
 
                 Password passwordAndSalt = _passwordService.SaltAndHashPassword(newUser.Password);
 
-                UserConfig userConfig = new UserConfig
+                    UserConfig userConfig = new UserConfig
                 {
                     Email = newUser.Email,
                     PasswordHash = passwordAndSalt.HashedPassword,
@@ -43,7 +44,7 @@ namespace signup_example.Controllers
 
                 try
                 {
-                    await _apiService.Post("user", userConfig);
+                    HttpResponseMessage response = await _apiService.Post("user", userConfig);
                 } catch (Exception e)
                 {
                     Debug.WriteLine("ERROR");

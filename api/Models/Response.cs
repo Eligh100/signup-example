@@ -9,6 +9,6 @@ namespace signup_api.Models
     {
         public int StatusCode { get; set; }
 
-        public string Response { get; set; }
+        public string ResponseMessage { get; set; }
     }
 }

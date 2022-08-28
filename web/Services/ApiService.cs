@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace signup_example.Services
@@ -18,10 +19,11 @@ namespace signup_example.Services
         }
 
         [HttpPost]
-        public Task<HttpResponseMessage> Post(string path, object payload)
+        public async Task<HttpResponseMessage> Post(string path, object payload)
         {
-            var content = new StringContent(payload.ToString(), Encoding.UTF8, "application/json");
-            return _httpClient.PostAsync($"https://localhost:7000/api/{path}", content);
+            var content = new StringContent(JsonSerializer.Serialize(payload), Encoding.UTF8, "application/json");
+            HttpResponseMessage response = await _httpClient.PostAsync($"http://localhost:7000/api/{path}", content);
+            return response;
         }
     }
 }
