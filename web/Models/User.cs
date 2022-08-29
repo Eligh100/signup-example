@@ -17,14 +17,14 @@ namespace signup_example.Models
         [Required(ErrorMessage = "Please enter password")]
         [DataType(DataType.Password)]
         [MinLength(8, ErrorMessage = "Password must be 8 characters or more")]
-        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$", ErrorMessage = "Password must contain at least one capital letter and special character")]
+        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$", ErrorMessage = "Password must contain at least one capital letter, one number, and one special character")]
         [Display(Name = "Password")]
         public string Password { get; set; }
 
         [Required(ErrorMessage = "Please confirm password")]
         [DataType(DataType.Password)]
         [MinLength(8, ErrorMessage = "Password must be 8 characters or more")]
-        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$", ErrorMessage = "Password must contain at least one capital letter and special character")]
+        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$", ErrorMessage = "Password must contain at least one capital letter, one number, and one special character")]
         [Display(Name = "Confirm Password")]
         [Compare("Password", ErrorMessage = "Passwords don't match")]
         public string ConfirmPassword { get; set; }
