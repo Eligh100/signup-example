@@ -10,7 +10,7 @@ namespace signup_example.Services
     public interface IPasswordService
     {
         public Password SaltAndHashPassword(string password);
-        protected static string CreateSalt(int size)
+        public static string CreateSalt(int size)
         {
             // Generate a cryptographic random number
             RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider();
@@ -20,7 +20,7 @@ namespace signup_example.Services
             return Convert.ToBase64String(buff);
         }
 
-        protected static string HashPassword(string password)
+        public static string HashPassword(string password)
         {
             // Create a new instance of the hash crypto service provider.
             HashAlgorithm hashAlg = new SHA256CryptoServiceProvider();
