@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Net.Http;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -27,15 +28,13 @@ namespace signup_example.Controllers
             return View();
         }
         
-        public async Task<IActionResult> RegisterUser(User newUser)
+        public async Task<ActionResult<Response>> RegisterUser(User newUser)
         {
             if (ModelState.IsValid)
             {
-                ModelState.Clear();
-
                 Password passwordAndSalt = _passwordService.SaltAndHashPassword(newUser.Password);
 
-                    UserConfig userConfig = new UserConfig
+                UserConfig userConfig = new UserConfig
                 {
                     Email = newUser.Email,
                     PasswordHash = passwordAndSalt.HashedPassword,
@@ -45,28 +44,30 @@ namespace signup_example.Controllers
                 try
                 {
                     HttpResponseMessage response = await _apiService.Post("user", userConfig);
+                    response.EnsureSuccessStatusCode();
+                    string jsonResponseBody = await response.Content.ReadAsStringAsync();
+
+                    Response endpointResponse = JsonSerializer.Deserialize<Response>(jsonResponseBody);
+
+                    return endpointResponse;
                 } catch (Exception e)
                 {
-                    Debug.WriteLine("ERROR");
+                    Debug.WriteLine($"Failed when trying to create user, with exception {e}");
+                    return new Response
+                    {
+                        StatusCode = 400,
+                        ResponseMessage = "Failed to create user"
+                    };
                 }
-
-                return PartialView("UserRegistered");
             }
             else
             {
-                return View();
+                return new Response
+                {
+                    StatusCode = 400,
+                    ResponseMessage = "Form details are invalid"
+                };
             }
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }

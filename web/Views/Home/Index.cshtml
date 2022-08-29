@@ -12,9 +12,16 @@
                 $("#loading").show();
                 $("#registrationForm").hide();
             }
-            function onComplete() {
+            function onComplete(data) {
                 $("#loading").hide();
                 $("#registrationForm").show();
+                console.log(data);
+                if (data.responseJSON.statusCode == 200) {
+                    $("#registrationForm")[0].reset();
+                    toastr.success(data.responseJSON.responseMessage);
+                } else {
+                    toastr.error(data.responseJSON.responseMessage);
+                }
             }
         </script>
 
@@ -31,6 +38,7 @@
 
             <div class="form-group">
                 <label asp-for="Password" class="control-label"></label>
+                <label>(At least 8 characters)</label>
                 <input asp-for="Password" class="form-control" type="password" autocomplete="new-password" />
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>

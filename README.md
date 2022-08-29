@@ -1,4 +1,8 @@
 # signup-example
 Prototype web application to add users to a database 
 
-Must be using Postgres 9.1 and newer 
+## DB Setup
+- Must be using Postgres 9.1 and newer
+- Database initialisation scripts can be found at api/SQL/initialisation_script.sql
+- Create file db_password.txt at api/SQL, containing your DB password (and nothing else)
+- Feel free to edit connection string to fit your preferences (i.e. different username, port number, etc.)

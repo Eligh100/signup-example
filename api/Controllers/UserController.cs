@@ -12,10 +12,6 @@ namespace signup_api.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        public UserController()
-        {
-        }
-
         // POST: api/user
         [HttpPost]
         public ActionResult<Response> AddUser(UserConfig newUser)
@@ -84,7 +80,7 @@ namespace signup_api.Controllers
             return new Response
             {
                 StatusCode = 200,
-                ResponseMessage = "SUCCESS"
+                ResponseMessage = "Successfully created new user"
             };
         } 
     }
