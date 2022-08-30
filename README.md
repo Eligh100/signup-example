@@ -5,16 +5,19 @@ Prototype web application to add users to a database
 
 Run both the web and api solutions via Visual Studio, on localhost
 
+It will not work until you setup the DB (see following section)
+
 ## DB Setup
 - Must be using Postgres 9.1 and newer
 - Database initialisation scripts can be found at api/SQL/initialisation_script.sql
-- Create file db_password.txt at api/SQL, containing your DB password (and nothing else)
+- **Create file db_password.txt at api/SQL, containing your DB password (and nothing else)**
 - Feel free to edit connection string to fit your preferences (i.e. different username, port number, etc.)
 
 ## Testing
 
 ### Unit Testing
 
+- Run via 'Test Explorer' in Visual Studio
 - Must have api server running whilst running tests
 - In ideal situation, tests would use a different database table - but my tests just use the main DB table
 
