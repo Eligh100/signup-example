@@ -8,7 +8,6 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.jQuery.Unobtrusive.Validation" Version="4.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
-    <PackageReference Include="MSTest.TestFramework" Version="2.2.10" />
     <PackageReference Include="NToastNotify" Version="8.0.0" />
   </ItemGroup>
 

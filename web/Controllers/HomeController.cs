@@ -30,42 +30,40 @@ namespace signup_example.Controllers
         
         public async Task<ActionResult<Response>> RegisterUser(User newUser)
         {
-            if (ModelState.IsValid)
-            {
-                Password passwordAndSalt = _passwordService.SaltAndHashPassword(newUser.Password);
-
-                UserConfig userConfig = new UserConfig
-                {
-                    Email = newUser.Email,
-                    PasswordHash = passwordAndSalt.HashedPassword,
-                    Salt = passwordAndSalt.Salt
-                };
-
-                try
-                {
-                    HttpResponseMessage response = await _apiService.Post("user", userConfig);
-                    response.EnsureSuccessStatusCode();
-                    string jsonResponseBody = await response.Content.ReadAsStringAsync();
-
-                    Response endpointResponse = JsonSerializer.Deserialize<Response>(jsonResponseBody);
-
-                    return endpointResponse;
-                } catch (Exception e)
-                {
-                    Debug.WriteLine($"Failed when trying to create user, with exception {e}");
-                    return new Response
-                    {
-                        StatusCode = 400,
-                        ResponseMessage = "Failed to create user"
-                    };
-                }
-            }
-            else
+            if (!ModelState.IsValid)
             {
                 return new Response
                 {
                     StatusCode = 400,
                     ResponseMessage = "Form details are invalid"
+                };
+            }
+
+            Password passwordAndSalt = _passwordService.SaltAndHashPassword(newUser.Password);
+
+            UserConfig userConfig = new UserConfig
+            {
+                Email = newUser.Email,
+                PasswordHash = passwordAndSalt.HashedPassword,
+                Salt = passwordAndSalt.Salt
+            };
+
+            try
+            {
+                HttpResponseMessage response = await _apiService.Post("user", userConfig);
+                response.EnsureSuccessStatusCode();
+                string jsonResponseBody = await response.Content.ReadAsStringAsync();
+
+                Response endpointResponse = JsonSerializer.Deserialize<Response>(jsonResponseBody);
+
+                return endpointResponse;
+            } catch (Exception e)
+            {
+                Debug.WriteLine($"Failed when trying to create user, with exception {e}");
+                return new Response
+                {
+                    StatusCode = 400,
+                    ResponseMessage = "Failed to create user"
                 };
             }
         }

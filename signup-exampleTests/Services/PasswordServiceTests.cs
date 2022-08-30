@@ -3,23 +3,22 @@ using signup_example.Models;
 using signup_example.Services;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 
-namespace signup_example.tests
+namespace signup_example.Services.Tests
 {
-    [TestClass]
-    public class PasswordServiceTest
+    [TestClass()]
+    public class PasswordServiceTests
     {
         private IPasswordService passwordService;
 
-        [TestInitialize]
+        [TestInitialize()]
         public void SetupPasswordService()
         {
             passwordService = new PasswordService();
         }
 
-        [TestMethod]
+        [TestMethod()]
         public void TestSaltAndHashPassword()
         {
             string testPassword = "TestPassword2022!";
@@ -39,7 +38,7 @@ namespace signup_example.tests
             Assert.AreEqual(hashedAndSaltedPassword2, hashedAndSaltedPassword);
         }
 
-        [TestMethod]
+        [TestMethod()]
         public void TestSaltUniqueness()
         {
             string samePassword = "test";
